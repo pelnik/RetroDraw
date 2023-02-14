@@ -48,7 +48,11 @@ const [activeColor, setActiveColor]= useState(COLORS[0])
       activeColor={activeColor}
     />
     {/* ActionPanel needs to be passed activeColor, cellList, and setCellList */}
-    <ActionPanel />
+    <ActionPanel 
+    cellList={cellList}
+    setCellList={setCellList}
+    activeColor={activeColor}
+    />
   </div>
 }
 
