@@ -15,6 +15,12 @@ const Palette = (props) => {
    */
   const activeColor = props.activeColor;
   const setActiveColor = props.setActiveColor;
+  
+  const returnActiveColor = (color) => {
+    setActiveColor(color)
+  }
+
+  
 
 
   /**
@@ -31,7 +37,7 @@ const Palette = (props) => {
     <div className="palette">
       {
         COLORS.map((color, idx) => {
-          return <Cell color={color} isActive={color === activeColor ? true : false} />
+          return <Cell color={color} key={`Palette ${idx}`} isActive={color === activeColor ? true : false} />
         })
       }
     </div>

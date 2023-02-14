@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 /**
  * The main application uses these four components
@@ -23,6 +23,8 @@ import {
  * with each other via state objects, and state functions.
  */
 const App = () => {
+
+const [activeColor, setActiveColor]= useState(COLORS[0])
   /**
    * Using useState you need to create:
    * 
@@ -34,7 +36,9 @@ const App = () => {
     {/* Header needs no props */}
     <Header />
     {/* Palette needs to be passed activeColor and setActiveColor */}
-    <Palette />
+    <Palette 
+    activeColor={activeColor}
+    setActiveColor={setActiveColor} />
     {/* Grid needs to be passed activeColor, cellList, and setCellList */}
     <Grid />
     {/* ActionPanel needs to be passed activeColor, cellList, and setCellList */}
