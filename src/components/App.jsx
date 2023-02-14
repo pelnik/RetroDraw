@@ -14,7 +14,7 @@ import ActionPanel from './ActionPanel';
  */
 import {
   COLORS,
-  buildCellList
+  buildCellList,
 } from '../utils';
 
 /**
@@ -23,67 +23,63 @@ import {
  * with each other via state objects, and state functions.
  */
 const getCellListFromLocal = () => {
-  let cellList = JSON.parse(localStorage.getItem('cellList'));
-
-  console.log('cellList localStorage', cellList)
-console.log('cellList stringify', JSON.stringify(cellList))
+  const cellList = JSON.parse(localStorage.getItem('cellList'));
 
   if (cellList) {
     return cellList;
   }
 
   return buildCellList();
-}
-
-
+};
 
 const setCellListOnLocal = (cellList) => {
   localStorage.setItem('cellList', JSON.stringify(cellList));
-}
+};
 
-
-const App = () => {
-
-const [activeColor, setActiveColor]= useState(COLORS[0])
+function App() {
+  const [activeColor, setActiveColor] = useState(COLORS[0]);
   /**
    * Using useState you need to create:
-   * 
+   *
    * - activeColor, setActiveColor initialized to COLORS[0]
    * - cellList, setCellList initialized to buildCellList()
    */
   const [cellList, _setCellList] = useState([]);
 
   function setCellList(newCellList) {
-    setCellListOnLocal(newCellList)
-    _setCellList(newCellList)
+    setCellListOnLocal(newCellList);
+    _setCellList(newCellList);
   }
 
-  useEffect(() => {
-    _setCellList(getCellListFromLocal())
-  },
-  [])
+  useEffect(
+    () => {
+      _setCellList(getCellListFromLocal());
+    },
+    [],
+  );
 
-
-  return <div className="app">
-    {/* Header needs no props */}
-    <Header />
-    {/* Palette needs to be passed activeColor and setActiveColor */}
-    <Palette 
-    activeColor={activeColor}
-    setActiveColor={setActiveColor} />
-    {/* Grid needs to be passed activeColor, cellList, and setCellList */}
-    <Grid
+  return (
+    <div className="app">
+      {/* Header needs no props */}
+      <Header />
+      {/* Palette needs to be passed activeColor and setActiveColor */}
+      <Palette 
+      activeColor={activeColor}
+      setActiveColor={setActiveColor} />
+      {/* Grid needs to be passed activeColor, cellList, and setCellList */}
+      <Grid
+        cellList={cellList}
+        setCellList={setCellList}
+        activeColor={activeColor}
+      />
+      {/* ActionPanel needs to be passed activeColor, cellList, and setCellList */}
+      <ActionPanel 
       cellList={cellList}
       setCellList={setCellList}
       activeColor={activeColor}
-    />
-    {/* ActionPanel needs to be passed activeColor, cellList, and setCellList */}
-    <ActionPanel 
-    cellList={cellList}
-    setCellList={setCellList}
-    activeColor={activeColor}
-    />
-  </div>
+      />
+    </div>
+  )
 }
 
 export default App;
